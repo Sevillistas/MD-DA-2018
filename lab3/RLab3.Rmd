@@ -1,0 +1,165 @@
+---
+title: "RLab3"
+author: "Alexey Volkov"
+date: '18 декабря 2018 г '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Задание 1
+
+ - Файл forbes.htm содержит список богатейших американцев по версии журнала Форбс. На его примере потренируемся в разборе html страниц.
+ 
+ - Используйте команду readLines для загрузки файла в текстовый вектор html.
+```{r}
+html <- readLines("https://raw.githubusercontent.com/SergeyMirvoda/MD-DA-2018/master/data/forbes.htm")
+```
+ 
+ - Сколько строк в файле?
+
+```{r}
+length(html)
+```
+
+ - Сколько символов в файле?
+ 
+```{r}
+sum(nchar(html))
+```
+
+ - Откройте файл в текстовом редакторе. Найдите строки, содержащие данные о Билле Гейтсе и Ларри Эллисоне и запомните размер их дохода.
+ 
+ Bill Gates - $72 B
+ Larry Ellison - $41 B
+ 
+ - Напишите шаблон регулярного выражения и используйте функцию grep, чтобы извлечь размер дохода из данных в векторе html. Удостоверьтесь, что полученный вектор номеров строк содержит содержит ровно 100 записей и ссылается на номера строк в котрых действительно есть информация о доходе, а не просто первый попавшийся текст.
+ 
+```{r}
+bigmoneys.indexes <- grep("<td class=\"worth\">\\$[0-9]{1,2},?[0-9]? B</td>", html)
+length(bigmoneys.indexes)
+bigmoneys.html<-html[bigmoneys.indexes]
+```
+ 
+ - Напишите код, использовав регулярное выражение из п. 3, и функции regexp и regmatches, чтобы извлечь все данные о доходе.
+ 
+```{r}
+bigmoneys.html.rexp<-regexpr("\\$[0-9]{1,2},?[0-9]? B", bigmoneys.html)
+bigmoneys.values <- regmatches(bigmoneys.html, bigmoneys.html.rexp)
+bigmoneys.values
+```
+ 
+ - Должно быть ровно 100 значений
+ 
+```{r}
+length(bigmoneys.values)
+```
+ 
+ - Самый большой доход должен быть доход Билла Гейтса
+ 
+```{r}
+bigmoneys.values[1]
+```
+ 
+ Соответствует  Bill Gates - $72 B
+ 
+ - Такой доход должен быть в списке один раз.
+ 
+```{r}
+length(bigmoneys.values[bigmoneys.values=="$72 B"])
+```
+
+ - В списке должна быть цифра, которую мы запомнили для Ларри Эллисона.
+ 
+```{r}
+bigmoneys.values[bigmoneys.values=="$41 B"]
+```
+ 
+ - Должно быть как минимум два значения, встречающихся несколько раз.
+ 
+```{r}
+table(bigmoneys.values)
+#Таблица с количеством повторений уникальных элементов
+```
+ 
+## Задание 2
+
+ - В данных доход представлен в формате "$42 B", что означает 42 ?? 10^9. Преобразуйте этот формат в числовой и сохраните в вектор worths. Удостоверьтесь в следующем
+ 
+```{r}
+justdigits.rexp <- regexpr("[0-9]{1,2},?[0-9]?", bigmoneys.values)
+justdigits.char <- regmatches(bigmoneys.values, justdigits.rexp)
+justdigits.char <- gsub(",",".", justdigits.char)
+worths <- as.double(justdigits.char) * 10^9
+```
+ 
+ - worths является вектором и в нём сто занчений типа double.
+ 
+```{r}
+is.vector(worths)
+typeof(worths)
+length(worths)
+```
+ 
+ - Все элементы вектора worths больше 1 миллиарда.
+ 
+```{r}
+all(worths>10^9)
+```
+
+ - Самое большое число это доход Билла Гейтса.
+ 
+```{r}
+max(worths) == 7.2*10^10
+```
+ 
+ - Используйте вектор worths , чтобы выяснить следующее:
+Какова медиана ста этих записей?
+
+```{r}
+median(worths)
+```
+
+ - Средний доход?
+ 
+```{r}
+mean(worths)
+```
+ 
+ - Как много людей из этого списка имеют доход больше 5млрд., 10, 25?
+ 
+```{r}
+length(worths[worths>5*10^9])
+length(worths[worths>10*10^9])
+length(worths[worths>25*10^9])
+```
+ 
+ - Какой их общий доход?
+ 
+```{r}
+sum(worths)
+```
+ 
+ - Какую долю от общего дохода, составляет пятёрка самых богатых.
+ 
+```{r}
+sum(worths[1:5])/sum(worths)
+```
+ 
+ Какую долю от общего дохода, составляют 20 самых богатых.
+ 
+```{r}
+sum(worths[1:20])/sum(worths)
+```
+ 
+ - В данных федерального резерва США найдите показатель дохода всех домохозяйств (Household net worth) в соответвующем году, какую долю общего дохода составляют 100 богатейших людей.
+ 
+```{r}
+household.net.worths<-96.939*10^9 #2017Q3
+
+sum(worths)/household.net.worths
+```
+ 
+ 
