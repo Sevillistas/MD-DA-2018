@@ -1,7 +1,7 @@
 ---
 title: "Homework 2"
 author: "Alexey Volkov"
-date: '26 декабря 2018 г '
+date: '26 РґРµРєР°Р±СЂСЏ 2018 ГЈ '
 output: html_document
 ---
 
@@ -9,77 +9,77 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Загрузка и очистка данных
+## Г‡Г ГЈГ°ГіГ§ГЄГ  ГЁ Г®Г·ГЁГ±ГІГЄГ  Г¤Г Г­Г­Г»Гµ
 
-#### Загрузите данные в датафрейм, который назовите data.
+#### Г‡Г ГЈГ°ГіГ§ГЁГІГҐ Г¤Г Г­Г­Г»ГҐ Гў Г¤Г ГІГ ГґГ°ГҐГ©Г¬, ГЄГ®ГІГ®Г°Г»Г© Г­Г Г§Г®ГўГЁГІГҐ data.
 ```{r}
 data <- read.csv("https://raw.githubusercontent.com/SergeyMirvoda/da2016/master/data/calif_penn_2011.csv", sep = ',', header = TRUE)
 ```
 
-#### Сколько строк и столбцов в data?
+#### Г‘ГЄГ®Г«ГјГЄГ® Г±ГІГ°Г®ГЄ ГЁ Г±ГІГ®Г«ГЎГ¶Г®Гў Гў data?
 
 ```{r}
 nrow(data)
 ncol(data)
 ```
 
-#### Выполните следующую команду и объясните, что она делает. colSums(apply(data,c(1,2), is.na))
+#### Г‚Г»ГЇГ®Г«Г­ГЁГІГҐ Г±Г«ГҐГ¤ГіГѕГ№ГіГѕ ГЄГ®Г¬Г Г­Г¤Гі ГЁ Г®ГЎГєГїГ±Г­ГЁГІГҐ, Г·ГІГ® Г®Г­Г  Г¤ГҐГ«Г ГҐГІ. colSums(apply(data,c(1,2), is.na))
 
 ```{r}
 colSums(apply(data, c(1,2), is.na))
 ```
 
-Данная функция вычисляет количество NaN значений в каждой колонке dataframe.
+Г„Г Г­Г­Г Гї ГґГіГ­ГЄГ¶ГЁГї ГўГ»Г·ГЁГ±Г«ГїГҐГІ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® NaN Г§Г­Г Г·ГҐГ­ГЁГ© Гў ГЄГ Г¦Г¤Г®Г© ГЄГ®Г«Г®Г­ГЄГҐ dataframe.
 
-#### Функция na.omit() принимает датафрейм и возвращает новый датафрейм, игнорируя строки, содержащие значение NA. Используйте эту функцию для удаления строк с неполными данными.
+#### Г”ГіГ­ГЄГ¶ГЁГї na.omit() ГЇГ°ГЁГ­ГЁГ¬Г ГҐГІ Г¤Г ГІГ ГґГ°ГҐГ©Г¬ ГЁ ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г­Г®ГўГ»Г© Г¤Г ГІГ ГґГ°ГҐГ©Г¬, ГЁГЈГ­Г®Г°ГЁГ°ГіГї Г±ГІГ°Г®ГЄГЁ, Г±Г®Г¤ГҐГ°Г¦Г Г№ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ NA. Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ ГЅГІГі ГґГіГ­ГЄГ¶ГЁГѕ Г¤Г«Гї ГіГ¤Г Г«ГҐГ­ГЁГї Г±ГІГ°Г®ГЄ Г± Г­ГҐГЇГ®Г«Г­Г»Г¬ГЁ Г¤Г Г­Г­Г»Г¬ГЁ.
 
 ```{r}
 filtered.data<-na.omit(data)
 ```
 
-#### Сколько строк было удалено?
+#### Г‘ГЄГ®Г«ГјГЄГ® Г±ГІГ°Г®ГЄ ГЎГ»Г«Г® ГіГ¤Г Г«ГҐГ­Г®?
 
 ```{r}
 nrow(data)-nrow(filtered.data)
 ```
 
-#### Соответствует ли результат выполнения, значениям из пункта 3?
+#### Г‘Г®Г®ГІГўГҐГІГ±ГІГўГіГҐГІ Г«ГЁ Г°ГҐГ§ГіГ«ГјГІГ ГІ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї, Г§Г­Г Г·ГҐГ­ГЁГїГ¬ ГЁГ§ ГЇГіГ­ГЄГІГ  3?
 
 ```{r}
 colSums(apply(filtered.data, c(1,2), is.na))
 ```
 
-Да, так как во всех колонках dataframe содержится 0 значений NaN.
+Г„Г , ГІГ ГЄ ГЄГ ГЄ ГўГ® ГўГ±ГҐГµ ГЄГ®Г«Г®Г­ГЄГ Гµ dataframe Г±Г®Г¤ГҐГ°Г¦ГЁГІГ±Гї 0 Г§Г­Г Г·ГҐГ­ГЁГ© NaN.
 
-## Новые дома
+## ГЌГ®ГўГ»ГҐ Г¤Г®Г¬Г 
 
-#### Переменная(колонка) Built_2005_or_later содержит данные о проценте домов, построенных с 2005 года. Постройте диаграмму рассеяния (scatterplot) медианы стоимости домов (переменная Median_house_value) относительно процента новых домов.
+#### ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г Гї(ГЄГ®Г«Г®Г­ГЄГ ) Built_2005_or_later Г±Г®Г¤ГҐГ°Г¦ГЁГІ Г¤Г Г­Г­Г»ГҐ Г® ГЇГ°Г®Г¶ГҐГ­ГІГҐ Г¤Г®Г¬Г®Гў, ГЇГ®Г±ГІГ°Г®ГҐГ­Г­Г»Гµ Г± 2005 ГЈГ®Г¤Г . ГЏГ®Г±ГІГ°Г®Г©ГІГҐ Г¤ГЁГ ГЈГ°Г Г¬Г¬Гі Г°Г Г±Г±ГҐГїГ­ГЁГї (scatterplot) Г¬ГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®Гў (ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Median_house_value) Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® ГЇГ°Г®Г¶ГҐГ­ГІГ  Г­Г®ГўГ»Гµ Г¤Г®Г¬Г®Гў.
 
 ```{r}
 plot(filtered.data$Built_2005_or_later, filtered.data$Median_house_value, xlab = "Build 2005 or later", ylab = "Median house value")
 ```
 
-#### Постройте ещё два графика для каждого из штатов отдельно. Номер штата содержится в переменной (STATEFP), где Калифорния 6-й штат, а Пенсильвания 42.
+#### ГЏГ®Г±ГІГ°Г®Г©ГІГҐ ГҐГ№Вё Г¤ГўГ  ГЈГ°Г ГґГЁГЄГ  Г¤Г«Гї ГЄГ Г¦Г¤Г®ГЈГ® ГЁГ§ ГёГІГ ГІГ®Гў Г®ГІГ¤ГҐГ«ГјГ­Г®. ГЌГ®Г¬ГҐГ° ГёГІГ ГІГ  Г±Г®Г¤ГҐГ°Г¦ГЁГІГ±Гї Гў ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© (STATEFP), ГЈГ¤ГҐ ГЉГ Г«ГЁГґГ®Г°Г­ГЁГї 6-Г© ГёГІГ ГІ, Г  ГЏГҐГ­Г±ГЁГ«ГјГўГ Г­ГЁГї 42.
 
 ```{r}
-plot(filtered.data$Built_2005_or_later[filtered.data$STATEFP==6], filtered.data$Median_house_value[filtered.data$STATEFP==6], main = "Калифорния", xlab = "Build 2005 or later", ylab = "Median house value")
+plot(filtered.data$Built_2005_or_later[filtered.data$STATEFP==6], filtered.data$Median_house_value[filtered.data$STATEFP==6], main = "ГЉГ Г«ГЁГґГ®Г°Г­ГЁГї", xlab = "Build 2005 or later", ylab = "Median house value")
 ```
 
 ```{r}
-plot(filtered.data$Built_2005_or_later[filtered.data$STATEFP==42], filtered.data$Median_house_value[filtered.data$STATEFP==42], main = "Пенсильвания", xlab = "Build 2005 or later", ylab = "Median house value")
+plot(filtered.data$Built_2005_or_later[filtered.data$STATEFP==42], filtered.data$Median_house_value[filtered.data$STATEFP==42], main = "ГЏГҐГ­Г±ГЁГ«ГјГўГ Г­ГЁГї", xlab = "Build 2005 or later", ylab = "Median house value")
 ```
 
-#### Незанятые дома
+#### ГЌГҐГ§Г Г­ГїГІГ»ГҐ Г¤Г®Г¬Г 
 
-#### Уровень найма (vacancy rate) — доля домов, которые не были заняты. В данных содержатся колонки, содержащие общее количество домовладений и количество не занятых домовладений.
+#### Г“Г°Г®ГўГҐГ­Гј Г­Г Г©Г¬Г  (vacancy rate) вЂ” Г¤Г®Г«Гї Г¤Г®Г¬Г®Гў, ГЄГ®ГІГ®Г°Г»ГҐ Г­ГҐ ГЎГ»Г«ГЁ Г§Г Г­ГїГІГ». Г‚ Г¤Г Г­Г­Г»Гµ Г±Г®Г¤ГҐГ°Г¦Г ГІГ±Гї ГЄГ®Г«Г®Г­ГЄГЁ, Г±Г®Г¤ГҐГ°Г¦Г Г№ГЁГҐ Г®ГЎГ№ГҐГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ© ГЁ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г­ГҐ Г§Г Г­ГїГІГ»Гµ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©.
 
-#### В датафрейм data добавьте новую колонку vacancy_rate, которая должна содержать вышеописанный показатель.
+#### Г‚ Г¤Г ГІГ ГґГ°ГҐГ©Г¬ data Г¤Г®ГЎГ ГўГјГІГҐ Г­Г®ГўГіГѕ ГЄГ®Г«Г®Г­ГЄГі vacancy_rate, ГЄГ®ГІГ®Г°Г Гї Г¤Г®Г«Г¦Г­Г  Г±Г®Г¤ГҐГ°Г¦Г ГІГј ГўГ»ГёГҐГ®ГЇГЁГ±Г Г­Г­Г»Г© ГЇГ®ГЄГ Г§Г ГІГҐГ«Гј.
 
 ```{r}
 filtered.data$vacancy_rate <- filtered.data$Vacant_units / filtered.data$Total_units
 ```
 
-#### Найдите минимум, максимум, среднее и медиану полученных значений показателя.
+#### ГЌГ Г©Г¤ГЁГІГҐ Г¬ГЁГ­ГЁГ¬ГіГ¬, Г¬Г ГЄГ±ГЁГ¬ГіГ¬, Г±Г°ГҐГ¤Г­ГҐГҐ ГЁ Г¬ГҐГ¤ГЁГ Г­Гі ГЇГ®Г«ГіГ·ГҐГ­Г­Г»Гµ Г§Г­Г Г·ГҐГ­ГЁГ© ГЇГ®ГЄГ Г§Г ГІГҐГ«Гї.
 
 ```{r}
 min(filtered.data$vacancy_rate)
@@ -88,21 +88,21 @@ mean(filtered.data$vacancy_rate)
 median(filtered.data$vacancy_rate)
 ```
 
-#### Постройте диаграмму уровня найма относительно медианы стоимости домов. Что можно заметить?
+#### ГЏГ®Г±ГІГ°Г®Г©ГІГҐ Г¤ГЁГ ГЈГ°Г Г¬Г¬Гі ГіГ°Г®ГўГ­Гї Г­Г Г©Г¬Г  Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г¬ГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®Гў. Г—ГІГ® Г¬Г®Г¦Г­Г® Г§Г Г¬ГҐГІГЁГІГј?
 
 ```{r}
 plot(filtered.data$Median_house_value, filtered.data$vacancy_rate, xlab = "Median house value", ylab = "Vacancy rate")
 ```
 
-Чем выше стоимость домов, тем ниже уровень найма.
+Г—ГҐГ¬ ГўГ»ГёГҐ Г±ГІГ®ГЁГ¬Г®Г±ГІГј Г¤Г®Г¬Г®Гў, ГІГҐГ¬ Г­ГЁГ¦ГҐ ГіГ°Г®ГўГҐГ­Гј Г­Г Г©Г¬Г .
 
-## Корреляция
+## ГЉГ®Г°Г°ГҐГ«ГїГ¶ГЁГї
 
-#### Колонка COUNTYFP содержит числовой код округа внутри штата. Нас интересуют Butte County (округ 7 в Калифорнии), Santa Clara (округ 85 в Калифорнии) и York County (округ 133 в Пенсильвании).
+#### ГЉГ®Г«Г®Г­ГЄГ  COUNTYFP Г±Г®Г¤ГҐГ°Г¦ГЁГІ Г·ГЁГ±Г«Г®ГўГ®Г© ГЄГ®Г¤ Г®ГЄГ°ГіГЈГ  ГўГ­ГіГІГ°ГЁ ГёГІГ ГІГ . ГЌГ Г± ГЁГ­ГІГҐГ°ГҐГ±ГіГѕГІ Butte County (Г®ГЄГ°ГіГЈ 7 Гў ГЉГ Г«ГЁГґГ®Г°Г­ГЁГЁ), Santa Clara (Г®ГЄГ°ГіГЈ 85 Гў ГЉГ Г«ГЁГґГ®Г°Г­ГЁГЁ) ГЁ York County (Г®ГЄГ°ГіГЈ 133 Гў ГЏГҐГ­Г±ГЁГ«ГјГўГ Г­ГЁГЁ).
 
-#### Объясните, что делает приведённый в конце задания код и как именно он это делает.
+#### ГЋГЎГєГїГ±Г­ГЁГІГҐ, Г·ГІГ® Г¤ГҐГ«Г ГҐГІ ГЇГ°ГЁГўГҐГ¤ВёГ­Г­Г»Г© Гў ГЄГ®Г­Г¶ГҐ Г§Г Г¤Г Г­ГЁГї ГЄГ®Г¤ ГЁ ГЄГ ГЄ ГЁГ¬ГҐГ­Г­Г® Г®Г­ ГЅГІГ® Г¤ГҐГ«Г ГҐГІ.
 
-Создаём выборку по округу из указанного штата
+Г‘Г®Г§Г¤Г ВёГ¬ ГўГ»ГЎГ®Г°ГЄГі ГЇГ® Г®ГЄГ°ГіГЈГі ГЁГ§ ГіГЄГ Г§Г Г­Г­Г®ГЈГ® ГёГІГ ГІГ 
 
 acc <- c()
 for (tract in 1:nrow(ca_pa)) {
@@ -113,7 +113,7 @@ for (tract in 1:nrow(ca_pa)) {
   }
 }
 
-Подсчитывыаем Median_house_value (10 колонка)
+ГЏГ®Г¤Г±Г·ГЁГІГ»ГўГ»Г ГҐГ¬ Median_house_value (10 ГЄГ®Г«Г®Г­ГЄГ )
 
 accmv <- c()
 for (tract in acc) {
@@ -137,75 +137,75 @@ for (tract in acc) {
 median(accmv)
 ```
 
-#### Напишите другим способом в одну строку, то же самое, что делает нижеуказанный код. Способов получить тот же ответ множество, достаточно одного.
+#### ГЌГ ГЇГЁГёГЁГІГҐ Г¤Г°ГіГЈГЁГ¬ Г±ГЇГ®Г±Г®ГЎГ®Г¬ Гў Г®Г¤Г­Гі Г±ГІГ°Г®ГЄГі, ГІГ® Г¦ГҐ Г±Г Г¬Г®ГҐ, Г·ГІГ® Г¤ГҐГ«Г ГҐГІ Г­ГЁГ¦ГҐГіГЄГ Г§Г Г­Г­Г»Г© ГЄГ®Г¤. Г‘ГЇГ®Г±Г®ГЎГ®Гў ГЇГ®Г«ГіГ·ГЁГІГј ГІГ®ГІ Г¦ГҐ Г®ГІГўГҐГІ Г¬Г­Г®Г¦ГҐГ±ГІГўГ®, Г¤Г®Г±ГІГ ГІГ®Г·Г­Г® Г®Г¤Г­Г®ГЈГ®.
 
 ```{r}
 median(filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 1])
 ```
 
-#### Найдите средний процент построенных домовладений в округах (Butte County, Santa Clara, York County)
+#### ГЌГ Г©Г¤ГЁГІГҐ Г±Г°ГҐГ¤Г­ГЁГ© ГЇГ°Г®Г¶ГҐГ­ГІ ГЇГ®Г±ГІГ°Г®ГҐГ­Г­Г»Гµ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ© Гў Г®ГЄГ°ГіГЈГ Гµ (Butte County, Santa Clara, York County)
 
-- Для Butte County
+- Г„Г«Гї Butte County
 ```{r}
 mean(filtered.data$Built_2005_or_later[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7])
 ```
-- Для Santa Clara
+- Г„Г«Гї Santa Clara
 
 ```{r}
 mean(filtered.data$Built_2005_or_later[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85])
 ```
-- Для York County
+- Г„Г«Гї York County
 
 ```{r}
 mean(filtered.data$Built_2005_or_later[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133])
 ```
 
-#### Функция cor рассчитывает коэффициент корреляции между двумя переменными. Рассчитайте корреляцию между медианы стоимости домовладений (Median_house_value) и процентом построенных домов (Built_2005_or_later)
+#### Г”ГіГ­ГЄГ¶ГЁГї cor Г°Г Г±Г±Г·ГЁГІГ»ГўГ ГҐГІ ГЄГ®ГЅГґГґГЁГ¶ГЁГҐГ­ГІ ГЄГ®Г°Г°ГҐГ«ГїГ¶ГЁГЁ Г¬ГҐГ¦Г¤Гі Г¤ГўГіГ¬Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Г¬ГЁ. ГђГ Г±Г±Г·ГЁГІГ Г©ГІГҐ ГЄГ®Г°Г°ГҐГ«ГїГ¶ГЁГѕ Г¬ГҐГ¦Г¤Гі Г¬ГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ© (Median_house_value) ГЁ ГЇГ°Г®Г¶ГҐГ­ГІГ®Г¬ ГЇГ®Г±ГІГ°Г®ГҐГ­Г­Г»Гµ Г¤Г®Г¬Г®Гў (Built_2005_or_later)
 
- - для всего набора данных
+ - Г¤Г«Гї ГўГ±ГҐГЈГ® Г­Г ГЎГ®Г°Г  Г¤Г Г­Г­Г»Гµ
  
 ```{r}
 cor(filtered.data$Median_house_value, filtered.data$Built_2005_or_later)
 ```
  
- - для Калифорнии (6)
+ - Г¤Г«Гї ГЉГ Г«ГЁГґГ®Г°Г­ГЁГЁ (6)
 
 ```{r}
 cor(filtered.data$Median_house_value[filtered.data$STATEFP==6], filtered.data$Built_2005_or_later[filtered.data$STATEFP==6])
 ```
 
- - для Пенсильвании (42)
+ - Г¤Г«Гї ГЏГҐГ­Г±ГЁГ«ГјГўГ Г­ГЁГЁ (42)
  
 ```{r}
 cor(filtered.data$Median_house_value[filtered.data$STATEFP==42], filtered.data$Built_2005_or_later[filtered.data$STATEFP==42])
 ```
  
- - для округа Butte County (7)
+ - Г¤Г«Гї Г®ГЄГ°ГіГЈГ  Butte County (7)
  
 ```{r}
 cor(filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7], filtered.data$Built_2005_or_later[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7])
 ```
  
- - для округа Santa Clara (85)
+ - Г¤Г«Гї Г®ГЄГ°ГіГЈГ  Santa Clara (85)
  
 ```{r}
 cor(filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85], filtered.data$Built_2005_or_later[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85])
 ```
  
- - для округа York County (133)
+ - Г¤Г«Гї Г®ГЄГ°ГіГЈГ  York County (133)
  
 ```{r}
 cor(filtered.data$Median_house_value[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133], filtered.data$Built_2005_or_later[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133])
 ```
  
-#### Постройте три диаграммы медианы стоимости домовладений (Median_house_value) относительно медианы дохода (Median_household_income) для трёх округов. Допустимо указать все три на одном графике.
+#### ГЏГ®Г±ГІГ°Г®Г©ГІГҐ ГІГ°ГЁ Г¤ГЁГ ГЈГ°Г Г¬Г¬Г» Г¬ГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ© (Median_house_value) Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г¬ГҐГ¤ГЁГ Г­Г» Г¤Г®ГµГ®Г¤Г  (Median_household_income) Г¤Г«Гї ГІГ°ВёГµ Г®ГЄГ°ГіГЈГ®Гў. Г„Г®ГЇГіГ±ГІГЁГ¬Г® ГіГЄГ Г§Г ГІГј ГўГ±ГҐ ГІГ°ГЁ Г­Г  Г®Г¤Г­Г®Г¬ ГЈГ°Г ГґГЁГЄГҐ.
 
 ```{r}
 #par(mfrow=c(1,3))
-plot(filtered.data$Median_household_income[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7], filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7],main="Butte County", xlab="Медианы дохода домовладений", ylab="Медианы стоимости домовладений")
+plot(filtered.data$Median_household_income[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7], filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 7],main="Butte County", xlab="ГЊГҐГ¤ГЁГ Г­Г» Г¤Г®ГµГ®Г¤Г  Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©", ylab="ГЊГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©")
 
-plot(filtered.data$Median_household_income[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85], filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85],main="Santa Clara",xlab="Медианы дохода домовладений", ylab="Медианы стоимости домовладений")
+plot(filtered.data$Median_household_income[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85], filtered.data$Median_house_value[filtered.data$STATEFP==6 & filtered.data$COUNTYFP == 85],main="Santa Clara",xlab="ГЊГҐГ¤ГЁГ Г­Г» Г¤Г®ГµГ®Г¤Г  Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©", ylab="ГЊГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©")
 
-plot(filtered.data$Median_household_income[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133], filtered.data$Median_house_value[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133],main="York County",xlab="Медианы дохода домовладений", ylab="Медианы стоимости домовладений")
+plot(filtered.data$Median_household_income[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133], filtered.data$Median_house_value[filtered.data$STATEFP==42 & filtered.data$COUNTYFP == 133],main="York County",xlab="ГЊГҐГ¤ГЁГ Г­Г» Г¤Г®ГµГ®Г¤Г  Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©", ylab="ГЊГҐГ¤ГЁГ Г­Г» Г±ГІГ®ГЁГ¬Г®Г±ГІГЁ Г¤Г®Г¬Г®ГўГ«Г Г¤ГҐГ­ГЁГ©")
 ```
 
