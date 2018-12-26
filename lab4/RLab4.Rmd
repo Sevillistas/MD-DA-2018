@@ -1,7 +1,7 @@
 ---
 title: "RLab4"
 author: "Alexey Volkov"
-date: '19 декабря 2018 г '
+date: '19 РґРµРєР°Р±СЂСЏ 2018 Рі '
 output: html_document
 ---
 
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 ```
 
-#Пользуясь примером из лекции файл (5.0.R) проанализируйте данныео возрасте и физ. характеристиках молюсков
+#РџРѕР»СЊР·СѓСЏСЃСЊ РїСЂРёРјРµСЂРѕРј РёР· Р»РµРєС†РёРё С„Р°Р№Р» (5.0.R) РїСЂРѕР°РЅР°Р»РёР·РёСЂСѓР№С‚Рµ РґР°РЅРЅС‹РµРѕ РІРѕР·СЂР°СЃС‚Рµ Рё С„РёР·. С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°С… РјРѕР»СЋСЃРєРѕРІ
 
 ```{r}
 data <- read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data", header=TRUE, sep=",")
@@ -38,20 +38,20 @@ data$sex <- factor(c("Female", "Infant", "Male")[data$sex])
 
 ```{r}
 par(mfrow=c(1,3))
-hist(data$diameter, main = "Диаметр, мм")
-hist(data$height, main = "Высота, мм")
-hist(data$whole_weight, main = "Полный вес, гр")
+hist(data$diameter, main = "Р”РёР°РјРµС‚СЂ, РјРј")
+hist(data$height, main = "Р’С‹СЃРѕС‚Р°, РјРј")
+hist(data$whole_weight, main = "РџРѕР»РЅС‹Р№ РІРµСЃ, РіСЂ")
 ```
 
-#Видим ассиметрию https://en.wikipedia.org/wiki/Skewness
-#и выбросы (от них нужно избавиться)
+#Р’РёРґРёРј Р°СЃСЃРёРјРµС‚СЂРёСЋ https://en.wikipedia.org/wiki/Skewness
+#Рё РІС‹Р±СЂРѕСЃС‹ (РѕС‚ РЅРёС… РЅСѓР¶РЅРѕ РёР·Р±Р°РІРёС‚СЊСЃСЏ)
 ```{r}
 par(mfrow=c(1,2)) 
-plot(data$diameter, data$whole_weight,'p',main = "Зависимость веса от диаметра", xlab = "Диаметр", ylab = "Вес")
-plot(data$height, data$whole_weight,'p',main = "Зависимость веса от высоты", xlab = "Высота", ylab = "Вес")
+plot(data$diameter, data$whole_weight,'p',main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°", xlab = "Р”РёР°РјРµС‚СЂ", ylab = "Р’РµСЃ")
+plot(data$height, data$whole_weight,'p',main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹", xlab = "Р’С‹СЃРѕС‚Р°", ylab = "Р’РµСЃ")
 ```
 
-  Линейная модель зависимости веса от диаметра
+  Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°
   
 ```{r}
 linear.model.1 <- lm(data$whole_weight ~ data$diameter)
@@ -59,7 +59,7 @@ summary(linear.model.1)
 plot(linear.model.1)
 ```
 
- Линейная модель зависимости веса от высоты
+ Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹
  
 ```{r}
 linear.model.2 <- lm(data$whole_weight ~ data$height)
@@ -67,7 +67,7 @@ summary(linear.model.2)
 plot(linear.model.2)
 ```
  
- Линейная модель зависимости веса от длины
+ Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РґР»РёРЅС‹
  
 ```{r}
 linear.model.3 <- lm(data$whole_weight ~ data$length)
@@ -84,14 +84,14 @@ data.filtered <- data.filtered %>% filter(height <= 0.25 & height > 0.0)
 linear.model.1.filt <- lm(data.filtered$whole_weight ~ data.filtered$diameter)
 summary(linear.model.1.filt)
 plot(linear.model.1.filt)
-#plot(data.filtered$diameter, data.filtered$whole_weight, main = "Зависимость веса от диаметра")
+#plot(data.filtered$diameter, data.filtered$whole_weight, main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°")
 ```
 
 ```{r}
 linear.model.2.filt <- lm(data.filtered$whole_weight ~ data.filtered$height)
 summary(linear.model.2.filt)
 plot(linear.model.2.filt)
-#plot(data.filtered$height, data.filtered$whole_weight, main = "Зависимость веса от высоты")
+#plot(data.filtered$height, data.filtered$whole_weight, main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹")
 ```
 
 ```{r}
@@ -102,8 +102,8 @@ plot(linear.model.3.filt)
 
 ```{r}
 par(mfrow=c(1,2))
-plot(data.filtered$diameter, data.filtered$whole_weight, main = "Зависимость веса от диаметра")
-plot(data.filtered$height, data.filtered$whole_weight, main = "Зависимость веса от высоты")
+plot(data.filtered$diameter, data.filtered$whole_weight, main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°")
+plot(data.filtered$height, data.filtered$whole_weight, main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹")
 ```
 
 
